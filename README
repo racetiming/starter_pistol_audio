@@ -1,0 +1,18 @@
+Install pico sdk
+----------------
+sudo apt update
+sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+
+Download tinyusb
+----------------
+(cd ..; git clone https://github.com/hathach/tinyusb.git)
+
+Build
+-----
+mkdir build; cd build; cmake .. -DFAMILY=rp2040; make -j 4
+
+Deploy to pico
+--------------
+sudo mount /dev/sda1 /mnt
+sudo cp *.uf2 /mnt
+sudo umount /mnt

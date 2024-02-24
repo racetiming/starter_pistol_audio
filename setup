@@ -1,0 +1,28 @@
+#!/bin/sh
+
+if [ command cmake ]; then
+  echo "sudo apt update"
+  echo "sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential"
+  exit
+else
+  echo "build essentials installed"
+fi
+
+if [ ! -d ~/pico ]; then
+  echo "Install the pico sdk"
+  echo "wget https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh"
+  echo "chmod +x pico_setup.sh"
+  echo "./pico_setup.sh"
+  exit
+else
+  echo "pico sdk installed"
+fi
+
+if [ ! -d ../tinyusb ]; then
+  (cd ..; git clone https://github.com/hathach/tinyusb.git)
+else
+  echo "tinyusb installed"
+fi
+
+mkdir -p build; cd build; cmake .. -DFAMILY=rp2040; make -j 4
+
